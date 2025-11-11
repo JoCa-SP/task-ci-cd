@@ -5,15 +5,20 @@ on:
     branches: [ main ]
 
 jobs:
-  simple-check:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Exibir mensagem de sucesso
-        run: echo "Pipeline executado com sucesso 🎉"
-        
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Instalar ESLint
+        run: npm install eslint --save-dev
+
       - name: Rodar ESLint
-        run: npm run lint
+        run: npx eslint .
