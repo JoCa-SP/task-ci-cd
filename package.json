@@ -1,0 +1,8 @@
+{
+  "name": "task-ci-cd",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Nenhum teste definido, mas o pipeline passou!\""
+  }
+}
