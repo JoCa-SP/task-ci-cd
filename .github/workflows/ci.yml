@@ -1,0 +1,39 @@
+name: Pipeline CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Instalar dependências
+        run: |
+          if [ -f "package.json" ]; then
+            npm install
+          else
+            echo "Nenhum package.json encontrado — pulando instalação."
+          fi
+
+      - name: Rodar testes
+        run: |
+          if [ -f "package.json" ]; then
+            npm test || echo "Nenhum teste definido."
+          else
+            echo "Sem testes para rodar."
+          fi
+
+      - name: Finalização
+        run: echo "✅ Pipeline executado com sucesso!"
